@@ -37,10 +37,7 @@ final Predicate<Car> carPredicate = car -> car.getPrice() < 10000;
     List<Person> people = MockData.getPeople();
 
     List<PersonDTO> dtos = people.stream()
-    .map(person -> {
-      PersonDTO dto = new PersonDTO(person.getId(), person.getFirstName(), person.getAge());
-      return dto;
-    })
+    .map(PersonDTO::map)
     .collect(Collectors.toList());
     dtos.forEach(System.out::println);
     assertThat(dtos).hasSize(1000);
@@ -51,6 +48,14 @@ final Predicate<Car> carPredicate = car -> car.getPrice() < 10000;
   @Test
   public void averageCarPrice() throws Exception {
     // calculate average of car prices
+
+    double average = MockData.getCars()
+    .stream()
+    .mapToDouble(Car::getPrice)
+    .average()
+    .orElse(0);
+
+    System.out.println(average);
 
   }
 
