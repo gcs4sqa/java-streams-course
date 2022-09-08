@@ -16,16 +16,36 @@ public class Lecture7 {
 
   @Test
   public void count() throws Exception {
+    long count = MockData.getPeople()
+    .stream()
+    .filter(person -> person.getGender().equalsIgnoreCase("female"))
+    .count();
+
+    System.out.println(count);
 
   }
 
   @Test
   public void min() throws Exception {
+    Double min =  MockData.getCars()
+    .stream()
+    .filter(car -> car.getColor().equalsIgnoreCase("yellow"))
+    .mapToDouble(Car::getPrice)
+    .min()
+    .getAsDouble();
+    System.out.println(min);
 
   }
 
   @Test
   public void max() throws Exception {
+    Double max =  MockData.getCars()
+    .stream()
+    .filter(car -> car.getColor().equalsIgnoreCase("yellow"))
+    .mapToDouble(Car::getPrice)
+    .max()
+    .getAsDouble();
+    System.out.println(max);
 
   }
 
@@ -33,7 +53,13 @@ public class Lecture7 {
   @Test
   public void average() throws Exception {
     List<Car> cars = MockData.getCars();
+    //ImmutableList<Car> cars = ImmutableList.of(); 
+    double average = cars.stream()
+    .mapToDouble(Car::getPrice)
+    .average()
+    .orElse(0);
 
+  System.out.println(average);
   }
 
   @Test
